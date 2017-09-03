@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NgRedux, NgReduxModule} from 'ng2-redux';
-import { AppState, rootReducer, INITIAL_STATE } from "./store";
+import { rootReducer, INITIAL_STATE } from './store';
+import { Map, fromJS } from 'immutable';
 
 
 @NgModule({
@@ -22,8 +23,9 @@ import { AppState, rootReducer, INITIAL_STATE } from "./store";
 })
 export class AppModule {
 
-  constructor(ngRedux: NgRedux<AppState>) {
-    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  // we have to change the type of our store from out AppState interface to Map<string, any>
+  constructor(ngRedux: NgRedux<Map<string, any>>) {
+    ngRedux.configureStore(rootReducer, fromJS(INITIAL_STATE));
   }
 
  }
